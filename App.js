@@ -1,39 +1,39 @@
 import React, { Component } from 'react';
-import { AppRegistry, FlatList, StyleSheet, Text, View } from 'react-native';
+import { AppRegistry, Text, View } from 'react-native';
 
-export default class FlatListBasics extends Component {
+class Blink extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {isShowingText: true};
+
+    // Toggle the state every second
+    setInterval(() => {
+      this.setState(previousState => {
+        return { isShowingText: !previousState.isShowingText };
+      });
+    }, 1000);
+  }
+
+  render() {
+    let display = this.state.isShowingText ? this.props.text : ' ';
+    return (
+      <Text>{display}</Text>
+    );
+  }
+}
+
+export default class BlinkApp extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={[
-            {key: 'Devin'},
-            {key: 'Jackson'},
-            {key: 'James'},
-            {key: 'Joel'},
-            {key: 'John'},
-            {key: 'Jillian'},
-            {key: 'Jimmy'},
-            {key: 'Julie'},
-          ]}
-          renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-        />
+      <View>
+        <Blink text='I love to blink' />
+        <Blink text='Yes blinking is so great' />
+        <Blink text='Why did they ever take this out of HTML' />
+        <Blink text='Look at me look at me look at me' />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-   flex: 1,
-   paddingTop: 22
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-})
-
 // skip this line if using Create React Native App
-AppRegistry.registerComponent('AwesomeProject', () => FlatListBasics);
+AppRegistry.registerComponent('AwesomeProject', () => BlinkApp);
